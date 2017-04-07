@@ -318,3 +318,8 @@ ul.guessBox li {
 	margin: 0.2em;
 	color: #fff;
 }
+
+.react-feedback {
+	font-size: 30px;
+	color: #fff;
+}

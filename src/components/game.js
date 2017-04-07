@@ -13,8 +13,8 @@ export default class Game extends React.Component {
       currentGuess: 0,
       guessList:[],
       count: 0,
-      feedback: 'YUP!',
-      answer: 0
+      feedback: 'WELCOME... TAKE A GUESS!',
+      answer: 25
     }
   }
   // this.setState(e => e.target.value)
@@ -35,20 +35,33 @@ export default class Game extends React.Component {
     else {
        this.setState({ guessList: [...this.state.guessList,guessInput]}); 
        this.setState({count: newcount});
+       const difference = Math.abs(guessInput - this.state.answer);
+       console.log(difference);
+       if (difference>=20) {
+         this.setState({feedback: 'Cold.'});
+       } else if (difference>=10) {
+         this.setState({feedback: 'Warmer.'});
+       } else if (difference>=5) {
+         this.setState({feedback: 'Hot!'});
+       } else if (difference>=1) {
+         this.setState({feedback: 'ALMOST!'});
+       } else {
+         this.setState({feedback: 'WINNER!!'});
+       }
     }
   }
 
   render() { 
-  return (
-    <div>
-      <Header />
-      <GuessForm
-        commitGuess={(value) => this.commitGuess(value)}
-        feedback={this.state.feedback}
-      />
-      <GuessCount count={this.state.count} />
-      <GuessList guesses={this.state.guessList} />
-    </div>
-  );
-  };
+    return (
+      <div>
+        <Header newGame={() => this.newGame} />
+        <GuessForm
+          commitGuess={(value) => this.commitGuess(value)}
+          feedback={this.state.feedback}
+        />
+        <GuessCount count={this.state.count} />
+        <GuessList guesses={this.state.guessList} />
+      </div>
+    );
+    };
 }
