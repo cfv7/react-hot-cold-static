@@ -22,9 +22,9 @@ export default class Game extends React.Component {
   // function should be called commitGuess
   newGame(){
     this.setState({answer: Math.floor(Math.random() * 100)+1});
+    console.log('new game');
   }
   commitGuess(guessInput){
-    let newcount= this.state.count+1;
     this.setState({currentGuess:  guessInput});
     console.log(this.state.guessList , guessInput);
     if (this.state.guessList.includes(guessInput) > 0) {
@@ -34,7 +34,7 @@ export default class Game extends React.Component {
     } 
     else {
        this.setState({ guessList: [...this.state.guessList,guessInput]}); 
-       this.setState({count: newcount});
+       this.setState({count: this.state.count+1});
        const difference = Math.abs(guessInput - this.state.answer);
        console.log(difference);
        if (difference>=20) {
@@ -54,7 +54,7 @@ export default class Game extends React.Component {
   render() { 
     return (
       <div>
-        <Header newGame={() => this.newGame} />
+        <Header newGame={() => this.newGame()} />
         <GuessForm
           commitGuess={(value) => this.commitGuess(value)}
           feedback={this.state.feedback}
